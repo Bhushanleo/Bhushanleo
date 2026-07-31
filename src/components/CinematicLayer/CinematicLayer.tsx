@@ -28,7 +28,7 @@ const VERTEX_SHADER = /* glsl */ `
     pos.z += sin(uTime * aSpeed * 0.5 + aPhase * 1.3) * aAmp * 0.4 * uAmpScale;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-    gl_PointSize = aSize * (300.0 / -mvPosition.z);
+    gl_PointSize = aSize * (30.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
 
     vAlpha = clamp(1.0 - (-mvPosition.z / 42.0), 0.0, 1.0);
@@ -95,7 +95,7 @@ export default function CinematicLayer() {
       colors[i * 3 + 1] = c.g;
       colors[i * 3 + 2] = c.b;
 
-      sizes[i] = 40 + Math.random() * 110;
+      sizes[i] = 3 + Math.random() * 7;
       phases[i] = Math.random() * Math.PI * 2;
       speeds[i] = 0.15 + Math.random() * 0.3;
       amps[i] = 0.15 + Math.random() * 0.45;
