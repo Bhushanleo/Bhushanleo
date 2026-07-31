@@ -1,4 +1,4 @@
-# Bhushan Leo — Cinematic Portfolio
+# Bhushan Gowda — Cinematic Portfolio
 
 A premium, cinematic portfolio hero built with Next.js App Router, React, GSAP, and CSS Modules.
 

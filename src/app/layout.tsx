@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bhushan Leo — Full-Stack Developer",
+  title: "Bhushan Gowda — Full-Stack Developer",
   description:
-    "Portfolio of Bhushan Leo, a full-stack developer crafting cinematic, high-performance web experiences.",
+    "Portfolio of Bhushan Gowda, a full-stack developer crafting cinematic, high-performance web experiences.",
 };
 
 export const viewport = {

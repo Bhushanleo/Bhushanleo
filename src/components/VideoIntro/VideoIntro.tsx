@@ -121,7 +121,7 @@ export default function VideoIntro() {
           className={`${styles.gate} ${entered ? styles.gateHidden : ""}`}
           aria-hidden={entered}
         >
-          <span className={styles.gateName}>Bhushan Leo</span>
+          <span className={styles.gateName}>Bhushan Gowda</span>
           <button
             type="button"
             className={styles.startButton}
@@ -141,7 +141,7 @@ export default function VideoIntro() {
               Bhushan
             </span>
             <span className={styles.nameLine} data-anim="name-line">
-              Leo
+              Gowda
             </span>
           </h1>
           <p className={styles.subtitle} data-anim="subtitle">
