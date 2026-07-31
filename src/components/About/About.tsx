@@ -26,21 +26,28 @@ const KEYWORDS = [
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
+  const photoWrapRef = useRef<HTMLDivElement>(null);
 
   useWipeReveal(sectionRef);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('[data-anim="about-photo"]', {
-        x: -40,
-        autoAlpha: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: '[data-anim="about-photo"]',
-          start: "top 82%",
-        },
-      });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.6,
+          },
+        })
+        .fromTo(
+          photoWrapRef.current,
+          { autoAlpha: 0, y: 60, scale: 0.92 },
+          { autoAlpha: 1, y: 0, scale: 1, ease: "power1.out" }
+        )
+        .to(photoWrapRef.current, { autoAlpha: 1, duration: 0.6 })
+        .to(photoWrapRef.current, { autoAlpha: 0, y: -60, scale: 0.92, ease: "power1.in" });
 
       gsap.from('[data-anim="about-item"]', {
         y: 28,
@@ -67,13 +74,13 @@ export default function About() {
         style={{ background: "#08080b" }}
       />
       <div className={styles.grid}>
-        <div className={styles.photoColumn} data-anim="about-photo">
-          <div className={styles.photoWrap}>
+        <div className={styles.photoColumn}>
+          <div className={styles.photoWrap} ref={photoWrapRef}>
             <Image
-              src="/images/about-photo.jpg"
+              src="/images/about-photo-new.jpg"
               alt="Bhushan Gowda"
-              width={720}
-              height={1210}
+              width={1611}
+              height={2000}
               className={styles.photo}
               sizes="(max-width: 860px) 80vw, 360px"
             />
@@ -82,7 +89,7 @@ export default function About() {
             </span>
           </div>
 
-          <ul className={styles.socials}>
+          <ul className={styles.socials} data-anim="about-item">
             {SOCIAL_LINKS.map((social) => (
               <li key={social.name}>
                 <a
