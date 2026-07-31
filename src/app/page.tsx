@@ -1,4 +1,5 @@
 import VideoIntro from "@/components/VideoIntro/VideoIntro";
+import Projects from "@/components/Projects/Projects";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -12,12 +13,12 @@ export default function Home() {
             Designing and building products people remember.
           </h2>
           <p className={styles.aboutText}>
-            This section is a placeholder landing target for the hero&apos;s
-            scroll indicator &mdash; replace it with the rest of the
-            portfolio.
+            I&apos;m a full-stack developer focused on the details that make
+            an interface feel alive &mdash; motion, timing, and craft.
           </p>
         </div>
       </section>
+      <Projects />
     </main>
   );
 }
