@@ -1,135 +1,108 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PROJECTS, type Accent } from "@/data/projects";
 import styles from "./Projects.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Accent = "orange" | "blue" | "violet" | "teal";
-
-const PROJECTS: {
-  id: string;
-  title: string;
-  tagline: string;
-  tags: string[];
-  accent: Accent;
-}[] = [
-  {
-    id: "01",
-    title: "Cinematic Commerce",
-    tagline:
-      "A headless storefront with motion-driven product reveals and a sub-second checkout flow.",
-    tags: ["Next.js", "Stripe", "Framer Motion"],
-    accent: "orange",
-  },
-  {
-    id: "02",
-    title: "Realtime Ops Dashboard",
-    tagline:
-      "Live infrastructure monitoring for distributed systems, streaming metrics at sub-second latency.",
-    tags: ["React", "WebSockets", "D3.js"],
-    accent: "blue",
-  },
-  {
-    id: "03",
-    title: "AI Content Studio",
-    tagline:
-      "Generative tooling for scriptwriters and video editors, built around a custom prompt pipeline.",
-    tags: ["Python", "FastAPI", "OpenAI"],
-    accent: "violet",
-  },
-  {
-    id: "04",
-    title: "Motion Design System",
-    tagline:
-      "A component library engineered for cinematic micro-interactions across a product suite.",
-    tags: ["TypeScript", "GSAP", "Storybook"],
-    accent: "teal",
-  },
-];
-
-const ACCENT_CLASS: Record<Accent, string> = {
-  orange: styles.accentOrange,
-  blue: styles.accentBlue,
-  violet: styles.accentViolet,
-  teal: styles.accentTeal,
+const ACCENT_COLOR: Record<Accent, string> = {
+  orange: "#ff8a3d",
+  blue: "#4fa8ff",
+  violet: "#b285ff",
+  teal: "#3ddbc0",
 };
 
 export default function Projects() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const outerRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const counterRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    const track = trackRef.current;
+    const outer = outerRef.current;
+    if (!track || !outer) return;
+
     const ctx = gsap.context(() => {
-      gsap.from('[data-anim="projects-eyebrow"]', {
-        y: 24,
-        autoAlpha: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: '[data-anim="projects-eyebrow"]',
-          start: "top 85%",
-        },
-      });
+      const panelCount = PROJECTS.length;
 
-      gsap.from('[data-anim="projects-title"]', {
-        y: 40,
-        autoAlpha: 0,
-        duration: 1,
-        ease: "power3.out",
+      const scrollTween = gsap.to(track, {
+        xPercent: (-100 * (panelCount - 1)) / panelCount,
+        ease: "none",
         scrollTrigger: {
-          trigger: '[data-anim="projects-title"]',
-          start: "top 85%",
-        },
-      });
-
-      gsap.utils.toArray<HTMLElement>('[data-anim="project-card"]').forEach((card, i) => {
-        gsap.from(card, {
-          y: 60,
-          autoAlpha: 0,
-          duration: 0.9,
-          delay: (i % 2) * 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 88%",
+          trigger: outer,
+          start: "top top",
+          end: () => "+=" + (track.scrollWidth - window.innerWidth),
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const index = Math.round(self.progress * (panelCount - 1)) + 1;
+            if (counterRef.current) {
+              counterRef.current.textContent = String(index).padStart(2, "0");
+            }
           },
-        });
+        },
       });
-    }, sectionRef);
+
+      return () => {
+        scrollTween.scrollTrigger?.kill();
+      };
+    }, outer);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} id="projects" className={styles.projects}>
-      <div className={styles.header}>
-        <span className={styles.eyebrow} data-anim="projects-eyebrow">
-          Selected Work
+    <section id="projects" ref={outerRef} className={styles.spotlight}>
+      <div className={styles.topBar}>
+        <span className={styles.eyebrow}>Projects</span>
+        <Link href="/projects" className={styles.viewAll}>
+          View All Projects <span aria-hidden="true">&#8599;</span>
+        </Link>
+        <span className={styles.counter}>
+          <span ref={counterRef}>01</span> / {String(PROJECTS.length).padStart(2, "0")}
         </span>
-        <h2 className={styles.title} data-anim="projects-title">
-          Projects
-        </h2>
       </div>
 
-      <div className={styles.grid}>
+      <div ref={trackRef} className={styles.track}>
         {PROJECTS.map((project) => (
           <article
             key={project.id}
-            className={`${styles.card} ${ACCENT_CLASS[project.accent]}`}
-            data-anim="project-card"
+            className={styles.panel}
+            style={{
+              background: project.gradient,
+              "--accent": ACCENT_COLOR[project.accent],
+            } as React.CSSProperties}
           >
-            <span className={styles.cardIndex}>{project.id}</span>
-            <h3 className={styles.cardTitle}>{project.title}</h3>
-            <p className={styles.cardTagline}>{project.tagline}</p>
-            <ul className={styles.tagList}>
-              {project.tags.map((tag) => (
-                <li key={tag} className={styles.tag}>
-                  {tag}
-                </li>
-              ))}
-            </ul>
+            <div className={styles.panelOverlay} />
+
+            <div className={styles.panelMain}>
+              <span className={styles.badge}>{project.category}</span>
+              <h2 className={styles.title}>{project.title}</h2>
+              <span className={styles.subtitle}>{project.subtitle}</span>
+              <a
+                href={project.liveDemo}
+                className={styles.liveDemo}
+                onClick={project.liveDemo === "#" ? (e) => e.preventDefault() : undefined}
+              >
+                Live Demo <span aria-hidden="true">&#8599;</span>
+              </a>
+            </div>
+
+            <div className={styles.panelDetails}>
+              <p className={styles.description}>{project.description}</p>
+              <ul className={styles.tags}>
+                {project.tags.map((tag) => (
+                  <li key={tag} className={styles.tag}>
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </article>
         ))}
       </div>
