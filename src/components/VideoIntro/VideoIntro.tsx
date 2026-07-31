@@ -11,22 +11,18 @@ export default function VideoIntro() {
   const containerRef = useRef<HTMLDivElement>(null);
   const fgVideoRef = useRef<HTMLVideoElement>(null);
   const bgVideoRef = useRef<HTMLVideoElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
+  const [entered, setEntered] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [muted, setMuted] = useState(true);
-  const [showHint, setShowHint] = useState(true);
+  const [showHint, setShowHint] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
 
-      tl.set(containerRef.current, { autoAlpha: 0 })
-        .to(containerRef.current, { autoAlpha: 1, duration: 1.4 })
-        .from(
-          '[data-anim="eyebrow"]',
-          { y: 24, autoAlpha: 0, duration: 0.9 },
-          "-=0.7"
-        )
+      tl.from('[data-anim="eyebrow"]', { y: 24, autoAlpha: 0, duration: 0.9 })
         .from(
           '[data-anim="name-line"]',
           { y: 70, autoAlpha: 0, duration: 1.1, stagger: 0.16 },
@@ -47,15 +43,19 @@ export default function VideoIntro() {
           { autoAlpha: 0, duration: 0.8 },
           "-=0.4"
         );
+
+      timelineRef.current = tl;
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowHint(false), 4500);
-    return () => clearTimeout(timer);
-  }, []);
+  const handleStart = () => {
+    setEntered(true);
+    timelineRef.current?.play();
+    setShowHint(true);
+    setTimeout(() => setShowHint(false), 4500);
+  };
 
   const togglePlay = () => {
     const fg = fgVideoRef.current;
@@ -116,6 +116,21 @@ export default function VideoIntro() {
         />
 
         <div className={styles.gradientOverlay} />
+
+        <div
+          className={`${styles.gate} ${entered ? styles.gateHidden : ""}`}
+          aria-hidden={entered}
+        >
+          <span className={styles.gateName}>Bhushan Leo</span>
+          <button
+            type="button"
+            className={styles.startButton}
+            onClick={handleStart}
+            disabled={entered}
+          >
+            Start
+          </button>
+        </div>
 
         <div className={styles.content}>
           <span className={styles.eyebrow} data-anim="eyebrow">
