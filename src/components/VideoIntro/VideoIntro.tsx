@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import CinematicLayer from "@/components/CinematicLayer/CinematicLayer";
 import { MuteIcon, PauseIcon, PlayIcon, UnmuteIcon } from "./icons";
 import styles from "./VideoIntro.module.css";
 
@@ -117,10 +116,6 @@ export default function VideoIntro() {
         />
 
         <div className={styles.gradientOverlay} />
-
-        <div className={styles.canvasLayer}>
-          <CinematicLayer />
-        </div>
 
         <div className={styles.content}>
           <span className={styles.eyebrow} data-anim="eyebrow">
