@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EXPERIENCE } from "@/data/experience";
@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useWipeReveal(sectionRef);
 
@@ -68,27 +69,41 @@ export default function Experience() {
         </span>
       </div>
 
-      <div className={styles.timeline}>
+      <div className={styles.timeline} onMouseLeave={() => setActiveIndex(0)}>
         <div className={styles.line} aria-hidden="true" />
-        {EXPERIENCE.map((item, i) => (
-          <div key={item.company} className={styles.column} data-anim="exp-column">
-            <div className={styles.node}>{String(i + 1).padStart(2, "0")}</div>
-            <span className={styles.meta}>
-              {item.period} &middot; {item.type}
-            </span>
-            <span className={styles.location}>{item.location}</span>
-            <h3 className={styles.company}>{item.company}</h3>
-            <span className={styles.role}>{item.role}</span>
-            <p className={styles.description}>{item.description}</p>
-            <ul className={styles.tags}>
-              {item.tags.map((tag) => (
-                <li key={tag} className={styles.tag}>
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {EXPERIENCE.map((item, i) => {
+          const isActive = i === activeIndex;
+          return (
+            <div
+              key={item.company}
+              className={`${styles.column} ${isActive ? styles.columnActive : ""}`}
+              data-anim="exp-column"
+              onMouseEnter={() => setActiveIndex(i)}
+              onFocus={() => setActiveIndex(i)}
+              tabIndex={0}
+            >
+              <div className={`${styles.node} ${isActive ? styles.nodeActive : ""}`}>
+                {String(i + 1).padStart(2, "0")}
+              </div>
+              <span className={styles.meta}>
+                {item.period} &middot; {item.type}
+              </span>
+              <span className={styles.location}>{item.location}</span>
+              <h3 className={styles.company}>{item.company}</h3>
+              <span className={styles.role}>{item.role}</span>
+              <p className={`${styles.description} ${isActive ? styles.descriptionActive : ""}`}>
+                {item.description}
+              </p>
+              <ul className={styles.tags}>
+                {item.tags.map((tag) => (
+                  <li key={tag} className={styles.tag}>
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
