@@ -92,11 +92,11 @@ export default function VideoIntro() {
   };
 
   const scrollToNext = () => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("intro")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className={styles.stickyWrap}>
+    <section id="home" className={styles.stickyWrap}>
       <div ref={containerRef} className={styles.hero}>
         <video
           ref={bgVideoRef}

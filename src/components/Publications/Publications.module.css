@@ -1,0 +1,82 @@
+.publications {
+  position: relative;
+  z-index: 10;
+  background: #08080b;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: clamp(4rem, 10vw, 7rem) clamp(1.5rem, 6vw, 6rem);
+}
+
+.header {
+  max-width: 42rem;
+  margin: 0 auto clamp(2.5rem, 6vw, 4rem);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 180, 120, 0.85);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #f5f2ec;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  max-width: 76rem;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 0.35s ease, border-color 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 176, 102, 0.4);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #f5f2ec;
+}
+
+.excerpt {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(230, 226, 219, 0.62);
+  flex: 1;
+}
+
+.readMore {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffb066;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

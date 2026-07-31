@@ -1,0 +1,152 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem clamp(1.25rem, 4vw, 2.5rem);
+  background: rgba(3, 3, 6, 0.45);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.clock {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(237, 233, 225, 0.7);
+  white-space: nowrap;
+  min-width: 11rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.navLink {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(245, 242, 236, 0.85);
+  transition: color 0.25s ease;
+}
+
+.navLink:hover {
+  color: #ffb066;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.emailBtn {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  background: #f5f2ec;
+  color: #08080b;
+  white-space: nowrap;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.emailBtn:hover {
+  background: #ffb066;
+  transform: translateY(-1px);
+}
+
+.resumeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(245, 242, 236, 0.85);
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.resumeBtn:hover {
+  border-color: #ffb066;
+  color: #ffb066;
+}
+
+.menuToggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.1rem;
+  height: 2.1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bar1,
+.bar2 {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: #f5f2ec;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.bar1.open {
+  transform: translateY(3.5px) rotate(45deg);
+}
+
+.bar2.open {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+
+.mobileMenu {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .clock,
+  .nav,
+  .emailBtn {
+    display: none;
+  }
+
+  .menuToggle {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(3, 3, 6, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: max-height 0.4s ease;
+  }
+
+  .mobileMenuOpen {
+    max-height: 24rem;
+  }
+
+  .mobileLink {
+    padding: 1rem clamp(1.25rem, 4vw, 2.5rem);
+    font-size: 0.95rem;
+    color: #f5f2ec;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}

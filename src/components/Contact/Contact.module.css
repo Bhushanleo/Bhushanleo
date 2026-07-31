@@ -1,0 +1,81 @@
+.contact {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #08080b;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: clamp(4.5rem, 12vw, 8rem) clamp(1.5rem, 6vw, 6rem);
+}
+
+.eyebrow {
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 180, 120, 0.85);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.title {
+  margin: 0;
+  max-width: 40rem;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #f5f2ec;
+}
+
+.text {
+  margin: 1.25rem 0 0;
+  max-width: 30rem;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: rgba(230, 226, 219, 0.65);
+}
+
+.emailBtn {
+  display: inline-flex;
+  margin-top: 2rem;
+  padding: 1rem 2.25rem;
+  border-radius: 999px;
+  background: #ffb066;
+  color: #1a1006;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.emailBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 44px -18px rgba(255, 176, 102, 0.55);
+}
+
+.socials {
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(237, 233, 225, 0.8);
+  transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.socialLink:hover {
+  border-color: #ffb066;
+  color: #ffb066;
+  transform: translateY(-2px);
+}
