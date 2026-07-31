@@ -100,12 +100,13 @@ export default function IntroReveal() {
 
         <div className={styles.photoWrap} data-anim="reveal-photo">
           <Image
-            src="/images/about-photo.jpg"
-            alt="Bhushan Gowda"
-            width={720}
-            height={1210}
+            src="/images/forbes-cover.jpg"
+            alt="Bhushan Gowda featured as Forbes' visionary AI leader"
+            width={1611}
+            height={2000}
             className={styles.photo}
             sizes="(max-width: 860px) 80vw, 420px"
+            priority={false}
           />
         </div>
       </div>
