@@ -6,6 +6,7 @@ import { Caveat } from "next/font/google";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SOCIAL_LINKS } from "@/components/shared/socialLinks";
+import { useWipeReveal } from "@/hooks/useWipeReveal";
 import styles from "./About.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -25,6 +26,8 @@ const KEYWORDS = [
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  useWipeReveal(sectionRef);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -57,6 +60,12 @@ export default function About() {
 
   return (
     <section id="about" ref={sectionRef} className={styles.about}>
+      <div
+        className="wipeCurtain"
+        data-wipe
+        aria-hidden="true"
+        style={{ background: "#08080b" }}
+      />
       <div className={styles.grid}>
         <div className={styles.photoColumn} data-anim="about-photo">
           <div className={styles.photoWrap}>

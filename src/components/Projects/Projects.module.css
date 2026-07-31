@@ -3,6 +3,7 @@
   z-index: 10;
   height: 100vh;
   overflow: hidden;
+  scroll-snap-align: start;
   background: #08080b;
 }
 

@@ -5,12 +5,15 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { MediumPost } from "@/lib/medium";
+import { useWipeReveal } from "@/hooks/useWipeReveal";
 import styles from "./Publications.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function PublicationsView({ posts }: { posts: MediumPost[] }) {
   const sectionRef = useRef<HTMLElement>(null);
+
+  useWipeReveal(sectionRef);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -46,6 +49,12 @@ export default function PublicationsView({ posts }: { posts: MediumPost[] }) {
 
   return (
     <section id="publications" ref={sectionRef} className={styles.publications}>
+      <div
+        className="wipeCurtain"
+        data-wipe
+        aria-hidden="true"
+        style={{ background: "#08080b" }}
+      />
       <Image
         src="/images/about-photo.jpg"
         alt=""

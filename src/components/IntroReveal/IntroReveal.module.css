@@ -2,11 +2,17 @@
   position: relative;
   z-index: 10;
   overflow: hidden;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  scroll-snap-align: start;
   background: linear-gradient(135deg, #ffe3c2 0%, #ffb066 45%, #ff8a3d 100%);
   padding: clamp(5rem, 12vw, 8rem) clamp(1.5rem, 6vw, 6rem);
 }
 
 .grid {
+  width: 100%;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: clamp(2.5rem, 6vw, 5rem);

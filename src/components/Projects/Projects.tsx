@@ -39,6 +39,10 @@ export default function Projects() {
           scrub: 1,
           pin: true,
           anticipatePin: 1,
+          onEnter: () => document.documentElement.classList.add("no-snap"),
+          onEnterBack: () => document.documentElement.classList.add("no-snap"),
+          onLeave: () => document.documentElement.classList.remove("no-snap"),
+          onLeaveBack: () => document.documentElement.classList.remove("no-snap"),
           onUpdate: (self) => {
             const index = Math.round(self.progress * (panelCount - 1)) + 1;
             if (counterRef.current) {
@@ -50,6 +54,7 @@ export default function Projects() {
 
       return () => {
         scrollTween.scrollTrigger?.kill();
+        document.documentElement.classList.remove("no-snap");
       };
     }, outer);
 

@@ -4,12 +4,15 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EXPERIENCE } from "@/data/experience";
+import { useWipeReveal } from "@/hooks/useWipeReveal";
 import styles from "./Experience.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  useWipeReveal(sectionRef);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -45,6 +48,12 @@ export default function Experience() {
 
   return (
     <section id="experience" ref={sectionRef} className={styles.experience}>
+      <div
+        className="wipeCurtain"
+        data-wipe
+        aria-hidden="true"
+        style={{ background: "#08080b" }}
+      />
       <div className={styles.header}>
         <div>
           <span className={styles.eyebrow} data-anim="exp-eyebrow">

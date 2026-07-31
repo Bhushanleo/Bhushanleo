@@ -5,6 +5,7 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SOCIAL_LINKS } from "@/components/shared/socialLinks";
+import { useWipeReveal } from "@/hooks/useWipeReveal";
 import styles from "./Contact.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -29,6 +30,8 @@ const YEAR = new Date().getFullYear();
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const [greeting, setGreeting] = useState("Hello");
+
+  useWipeReveal(sectionRef);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -68,6 +71,12 @@ export default function Contact() {
 
   return (
     <section id="contact" ref={sectionRef} className={styles.contact}>
+      <div
+        className="wipeCurtain"
+        data-wipe
+        aria-hidden="true"
+        style={{ background: "#08080b" }}
+      />
       <span className={styles.watermark} aria-hidden="true">
         Bhushan Gowda
       </span>

@@ -25,6 +25,7 @@ function formatIstTime(date: Date) {
 export default function Header() {
   const [time, setTime] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const tick = () => setTime(formatIstTime(new Date()));
@@ -36,10 +37,26 @@ export default function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    const hero = document.getElementById("home");
+    if (!hero) {
+      const timeout = setTimeout(() => setVisible(true), 0);
+      return () => clearTimeout(timeout);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(!entry.isIntersecting),
+      { threshold: 0.15 }
+    );
+    observer.observe(hero);
+
+    return () => observer.disconnect();
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${visible ? styles.headerVisible : ""}`}>
       <div className={styles.bar}>
         <span className={styles.clock} suppressHydrationWarning>
           India Time &mdash; {time ?? "--:--:--"}

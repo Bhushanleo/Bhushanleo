@@ -14,6 +14,19 @@ html {
   height: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 4.5rem;
+  scroll-snap-type: y mandatory;
+}
+
+html.no-snap {
+  scroll-snap-type: none;
+}
+
+.wipeCurtain {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  transform-origin: top;
 }
 
 html,
