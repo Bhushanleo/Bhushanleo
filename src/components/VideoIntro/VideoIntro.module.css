@@ -193,39 +193,6 @@
   transform: translateY(0);
 }
 
-.hint {
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  color: rgba(255, 236, 220, 0.85);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 0.5rem 0.9rem;
-  border-radius: 999px;
-  opacity: 0;
-  transform: translateY(4px) scale(0.96);
-  pointer-events: none;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  white-space: nowrap;
-}
-
-.hintVisible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  animation: hintPulse 1.8s ease-in-out infinite;
-}
-
-@keyframes hintPulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 160, 90, 0.35);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(255, 160, 90, 0);
-  }
-}
-
 /* ---------- scroll indicator ---------- */
 
 .scrollIndicator {
@@ -301,10 +268,6 @@
     height: 2.6rem;
   }
 
-  .hint {
-    display: none;
-  }
-
   .content {
     padding: 0 1.5rem;
   }
@@ -316,9 +279,5 @@
     opacity: 1;
     top: 50%;
     transform: translateY(-50%);
-  }
-
-  .hintVisible {
-    animation: none;
   }
 }

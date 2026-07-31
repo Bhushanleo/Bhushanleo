@@ -6,6 +6,7 @@ import { MuteIcon, PauseIcon, PlayIcon, UnmuteIcon } from "./icons";
 import styles from "./VideoIntro.module.css";
 
 const VIDEO_SRC = "/videos/hero-intro.mp4";
+const POSTER_SRC = "/images/hero-poster.jpg";
 
 export default function VideoIntro() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,9 +15,8 @@ export default function VideoIntro() {
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   const [entered, setEntered] = useState(false);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(true);
-  const [showHint, setShowHint] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -51,10 +51,19 @@ export default function VideoIntro() {
   }, []);
 
   const handleStart = () => {
+    const fg = fgVideoRef.current;
+    const bg = bgVideoRef.current;
+
     setEntered(true);
     timelineRef.current?.play();
-    setShowHint(true);
-    setTimeout(() => setShowHint(false), 4500);
+
+    if (fg) {
+      fg.muted = false;
+      fg.play();
+    }
+    bg?.play();
+    setPlaying(true);
+    setMuted(false);
   };
 
   const togglePlay = () => {
@@ -80,7 +89,6 @@ export default function VideoIntro() {
     const next = !fg.muted;
     fg.muted = next;
     setMuted(next);
-    if (!next) setShowHint(false);
   };
 
   const scrollToNext = () => {
@@ -94,7 +102,7 @@ export default function VideoIntro() {
           ref={bgVideoRef}
           className={styles.videoBg}
           src={VIDEO_SRC}
-          autoPlay
+          poster={POSTER_SRC}
           loop
           muted
           playsInline
@@ -106,7 +114,7 @@ export default function VideoIntro() {
           ref={fgVideoRef}
           className={styles.videoFg}
           src={VIDEO_SRC}
-          autoPlay
+          poster={POSTER_SRC}
           loop
           muted
           playsInline
@@ -151,11 +159,6 @@ export default function VideoIntro() {
         </div>
 
         <div className={styles.controls} data-anim="controls">
-          <span
-            className={`${styles.hint} ${showHint ? styles.hintVisible : ""}`}
-          >
-            Tap for sound
-          </span>
           <button
             type="button"
             className={styles.controlBtn}
