@@ -103,7 +103,6 @@ export default function VideoIntro() {
           className={styles.videoBg}
           src={VIDEO_SRC}
           poster={POSTER_SRC}
-          loop
           muted
           playsInline
           preload="auto"
@@ -115,12 +114,12 @@ export default function VideoIntro() {
           className={styles.videoFg}
           src={VIDEO_SRC}
           poster={POSTER_SRC}
-          loop
           muted
           playsInline
           preload="auto"
           aria-hidden="true"
           tabIndex={-1}
+          onEnded={() => setPlaying(false)}
         />
 
         <div className={styles.gradientOverlay} />
