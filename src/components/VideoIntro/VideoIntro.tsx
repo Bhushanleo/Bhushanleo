@@ -121,7 +121,7 @@ export default function VideoIntro() {
           className={`${styles.gate} ${entered ? styles.gateHidden : ""}`}
           aria-hidden={entered}
         >
-          <span className={styles.gateName}>Bhushan Gowda</span>
+          <span className={styles.gateName}>Bhushan Leo</span>
           <button
             type="button"
             className={styles.startButton}
