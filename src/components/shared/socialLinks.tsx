@@ -46,7 +46,7 @@ export const SOCIAL_LINKS = [
   },
   {
     name: "LinkedIn",
-    href: "#",
+    href: "https://www.linkedin.com/in/bhushan-kumar-s-5bb3511a6/",
     icon: (
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
         <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.6" />
@@ -56,6 +56,23 @@ export const SOCIAL_LINKS = [
           stroke="currentColor"
           strokeWidth="1.6"
           strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/919008888871",
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+        <path
+          d="M12 3a9 9 0 0 0-7.76 13.55L3 21l4.6-1.21A9 9 0 1 0 12 3Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+        <path
+          d="M8.7 8.3c.2-.45.4-.46.6-.47h.5c.16 0 .38-.06.6.46.22.53.75 1.83.82 1.96.07.14.11.3.02.48-.09.18-.14.28-.28.44-.14.15-.29.34-.42.46-.14.13-.28.28-.13.55.16.28.7 1.16 1.52 1.87 1.05.92 1.93 1.21 2.2 1.35.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.27.36-.22.6-.13.25.09 1.6.76 1.87.9.28.14.46.2.53.32.07.13.07.72-.17 1.42-.24.7-1.4 1.34-1.94 1.42-.5.08-1.13.11-1.83-.12-.42-.13-.96-.32-1.65-.62-2.9-1.25-4.8-4.16-4.94-4.36-.15-.19-1.19-1.58-1.19-3.02 0-1.43.75-2.13 1.02-2.42Z"
+          fill="currentColor"
         />
       </svg>
     ),

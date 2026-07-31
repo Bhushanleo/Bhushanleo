@@ -51,19 +51,21 @@ export default function VideoIntro() {
   }, []);
 
   const handleStart = () => {
-    const fg = fgVideoRef.current;
-    const bg = bgVideoRef.current;
-
     setEntered(true);
     timelineRef.current?.play();
 
-    if (fg) {
-      fg.muted = false;
-      fg.play();
-    }
-    bg?.play();
-    setPlaying(true);
-    setMuted(false);
+    setTimeout(() => {
+      const fg = fgVideoRef.current;
+      const bg = bgVideoRef.current;
+
+      if (fg) {
+        fg.muted = false;
+        fg.play();
+      }
+      bg?.play();
+      setPlaying(true);
+      setMuted(false);
+    }, 2000);
   };
 
   const togglePlay = () => {

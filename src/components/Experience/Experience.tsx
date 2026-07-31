@@ -3,44 +3,21 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { EXPERIENCE } from "@/data/experience";
 import styles from "./Experience.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const ROLES = [
-  {
-    role: "Senior Full-Stack Engineer",
-    company: "Nova Systems",
-    period: "2023 — Present",
-    description:
-      "Leading development of a microservices-based platform serving 100K+ daily users, mentoring a team of four engineers.",
-  },
-  {
-    role: "Full-Stack Developer",
-    company: "Lumen Studio",
-    period: "2021 — 2023",
-    description:
-      "Built and shipped customer-facing web applications end-to-end using React, Node.js, and PostgreSQL.",
-  },
-  {
-    role: "Junior Developer",
-    company: "Arclight Labs",
-    period: "2019 — 2021",
-    description:
-      "Contributed to internal tooling and automation, reducing manual QA time by 40%.",
-  },
-];
 
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('[data-anim="exp-eyebrow"], [data-anim="exp-title"]', {
+      gsap.from('[data-anim="exp-eyebrow"], [data-anim="exp-title"], [data-anim="exp-count"]', {
         y: 30,
         autoAlpha: 0,
         duration: 0.9,
-        stagger: 0.1,
+        stagger: 0.08,
         ease: "power3.out",
         scrollTrigger: {
           trigger: '[data-anim="exp-title"]',
@@ -48,14 +25,15 @@ export default function Experience() {
         },
       });
 
-      gsap.utils.toArray<HTMLElement>('[data-anim="exp-item"]').forEach((item) => {
-        gsap.from(item, {
-          x: -40,
+      gsap.utils.toArray<HTMLElement>('[data-anim="exp-column"]').forEach((column, i) => {
+        gsap.from(column, {
+          y: 40,
           autoAlpha: 0,
-          duration: 0.9,
+          duration: 0.8,
+          delay: i * 0.1,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: item,
+            trigger: column,
             start: "top 88%",
           },
         });
@@ -68,28 +46,39 @@ export default function Experience() {
   return (
     <section id="experience" ref={sectionRef} className={styles.experience}>
       <div className={styles.header}>
-        <span className={styles.eyebrow} data-anim="exp-eyebrow">
-          Career
+        <div>
+          <span className={styles.eyebrow} data-anim="exp-eyebrow">
+            Career
+          </span>
+          <h2 className={styles.title} data-anim="exp-title">
+            Work Experience
+          </h2>
+        </div>
+        <span className={styles.count} data-anim="exp-count">
+          {String(EXPERIENCE.length).padStart(2, "0")} Companies
         </span>
-        <h2 className={styles.title} data-anim="exp-title">
-          Experience
-        </h2>
       </div>
 
       <div className={styles.timeline}>
-        {ROLES.map((item) => (
-          <article key={item.role} className={styles.item} data-anim="exp-item">
-            <div className={styles.marker}>
-              <span className={styles.dot} />
-              <span className={styles.line} />
-            </div>
-            <div className={styles.body}>
-              <span className={styles.period}>{item.period}</span>
-              <h3 className={styles.role}>{item.role}</h3>
-              <span className={styles.company}>{item.company}</span>
-              <p className={styles.description}>{item.description}</p>
-            </div>
-          </article>
+        <div className={styles.line} aria-hidden="true" />
+        {EXPERIENCE.map((item, i) => (
+          <div key={item.company} className={styles.column} data-anim="exp-column">
+            <div className={styles.node}>{String(i + 1).padStart(2, "0")}</div>
+            <span className={styles.meta}>
+              {item.period} &middot; {item.type}
+            </span>
+            <span className={styles.location}>{item.location}</span>
+            <h3 className={styles.company}>{item.company}</h3>
+            <span className={styles.role}>{item.role}</span>
+            <p className={styles.description}>{item.description}</p>
+            <ul className={styles.tags}>
+              {item.tags.map((tag) => (
+                <li key={tag} className={styles.tag}>
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
     </section>
