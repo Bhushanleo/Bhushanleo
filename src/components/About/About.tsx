@@ -60,6 +60,35 @@ export default function About() {
           start: "top 85%",
         },
       });
+
+      gsap.utils.toArray<HTMLElement>('[data-anim="bio-row"]').forEach((row) => {
+        const index = row.querySelector(`.${styles.bioIndex}`);
+        const paragraph = row.querySelector(`.${styles.bioParagraph}`);
+
+        gsap.fromTo(
+          paragraph,
+          { clipPath: "inset(0 100% 0 0)", filter: "blur(7px)" },
+          {
+            clipPath: "inset(0 0% 0 0)",
+            filter: "blur(0px)",
+            duration: 1.1,
+            ease: "power3.out",
+            scrollTrigger: { trigger: row, start: "top 88%" },
+          }
+        );
+
+        gsap.fromTo(
+          index,
+          { autoAlpha: 0, x: -14 },
+          {
+            autoAlpha: 1,
+            x: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: { trigger: row, start: "top 88%" },
+          }
+        );
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -68,10 +97,9 @@ export default function About() {
   return (
     <section id="about" ref={sectionRef} className={styles.about}>
       <div
-        className="wipeCurtain"
+        className={`wipeCurtain ${styles.wipeCurtainAbout}`}
         data-wipe
         aria-hidden="true"
-        style={{ background: "#08080b" }}
       />
       <div className={styles.grid}>
         <div className={styles.photoColumn}>
@@ -125,14 +153,59 @@ export default function About() {
             </div>
           </div>
 
-          <p className={styles.bio} data-anim="about-item">
-            I&apos;m a full-stack developer focused on building fast,
-            reliable products end-to-end &mdash; from clean API design and
-            scalable backend architecture to interfaces that feel considered
-            down to the last transition. I care about the craft as much as
-            the code: performance, accessible motion, and the details most
-            people only notice when they&apos;re missing.
-          </p>
+          <div className={styles.bioBlock}>
+            <div className={styles.bioRow} data-anim="bio-row">
+              <span className={styles.bioIndex}>01</span>
+              <p className={styles.bioParagraph}>
+                I&apos;m Bhushan Kumar S, a Software Engineer and AI
+                Enthusiast based in Bengaluru with over 4 years of
+                experience in enterprise software, technical support,
+                incident management, and digital transformation. My
+                professional journey includes working with{" "}
+                <span className={styles.highlight}>
+                  NSOFT India Pvt. Ltd.
+                </span>{" "}
+                on <span className={styles.highlight}>GESCOM&apos;s</span>{" "}
+                ERP systems, followed by{" "}
+                <span className={styles.highlight}>Accenture</span>, where
+                I supported Microsoft products and managed
+                mission-critical incidents for global clients across the
+                US and UK.
+              </p>
+            </div>
+
+            <div className={styles.bioRow} data-anim="bio-row">
+              <span className={styles.bioIndex}>02</span>
+              <p className={styles.bioParagraph}>
+                Currently, I&apos;m contributing to technology initiatives
+                at the{" "}
+                <span className={styles.highlight}>
+                  Karnataka Milk Federation (KMF)
+                </span>
+                , while continuously expanding my expertise in{" "}
+                <span className={styles.highlight}>
+                  Artificial Intelligence
+                </span>
+                , full-stack development, automation, and cloud
+                technologies.
+              </p>
+            </div>
+
+            <div className={styles.bioRow} data-anim="bio-row">
+              <span className={styles.bioIndex}>03</span>
+              <p className={styles.bioParagraph}>
+                An{" "}
+                <span className={styles.highlight}>
+                  MCA graduate from PES University
+                </span>
+                , I&apos;m passionate about building innovative digital
+                solutions, exploring the latest AI tools, and expressing
+                creativity through photography and videography. I believe
+                in continuous learning and leveraging technology to solve
+                real-world challenges.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

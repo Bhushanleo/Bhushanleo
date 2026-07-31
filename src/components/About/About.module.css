@@ -12,6 +12,11 @@
   padding: clamp(4rem, 10vw, 7rem) clamp(1.5rem, 6vw, 6rem);
 }
 
+.wipeCurtainAbout {
+  background: linear-gradient(150deg, #ff8a3d 0%, #341709 40%, #08080b 72%);
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 0% 100%);
+}
+
 .grid {
   width: 100%;
   display: grid;
@@ -149,12 +154,38 @@
   }
 }
 
-.bio {
+.bioBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  max-width: 38rem;
+}
+
+.bioRow {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.9rem;
+  align-items: baseline;
+}
+
+.bioIndex {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(255, 176, 102, 0.55);
+  padding-top: 0.2rem;
+}
+
+.bioParagraph {
   margin: 0;
   font-size: 1.02rem;
   line-height: 1.75;
   color: rgba(230, 226, 219, 0.7);
-  max-width: 34rem;
+}
+
+.highlight {
+  color: #ffb066;
+  font-weight: 600;
 }
 
 @media (max-width: 860px) {
