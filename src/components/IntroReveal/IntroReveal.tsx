@@ -26,6 +26,7 @@ export default function IntroReveal() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 75%",
+          toggleActions: "play none none reverse",
         },
         defaults: { ease: "power3.out" },
       });

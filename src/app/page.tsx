@@ -6,10 +6,12 @@ import Projects from "@/components/Projects/Projects";
 import Experience from "@/components/Experience/Experience";
 import Publications from "@/components/Publications/Publications";
 import Contact from "@/components/Contact/Contact";
+import HashScroll from "@/components/HashScroll/HashScroll";
 
 export default function Home() {
   return (
     <main>
+      <HashScroll />
       <VideoIntro />
       <IntroReveal />
       <About />

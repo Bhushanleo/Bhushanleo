@@ -26,19 +26,25 @@ export default function PublicationsView({ posts }: { posts: MediumPost[] }) {
         scrollTrigger: {
           trigger: '[data-anim="pub-title"]',
           start: "top 85%",
+          toggleActions: "play none none reverse",
         },
       });
 
       gsap.utils.toArray<HTMLElement>('[data-anim="pub-row"]').forEach((row, i) => {
+        const fromSide = i % 2 === 0 ? -1 : 1;
         gsap.from(row, {
           y: 24,
+          rotateY: fromSide * 55,
           autoAlpha: 0,
-          duration: 0.7,
+          transformPerspective: 1000,
+          transformOrigin: fromSide > 0 ? "left center" : "right center",
+          duration: 0.8,
           delay: i * 0.06,
           ease: "power3.out",
           scrollTrigger: {
             trigger: row,
             start: "top 90%",
+            toggleActions: "play none none reverse",
           },
         });
       });

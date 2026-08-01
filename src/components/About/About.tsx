@@ -51,6 +51,9 @@ export default function About() {
 
       gsap.from('[data-anim="about-item"]', {
         y: 28,
+        rotateX: -35,
+        transformPerspective: 800,
+        transformOrigin: "50% 100%",
         autoAlpha: 0,
         duration: 0.9,
         stagger: 0.12,
@@ -58,6 +61,7 @@ export default function About() {
         scrollTrigger: {
           trigger: '[data-anim="about-item"]',
           start: "top 85%",
+          toggleActions: "play none none reverse",
         },
       });
 
@@ -73,7 +77,11 @@ export default function About() {
             filter: "blur(0px)",
             duration: 1.1,
             ease: "power3.out",
-            scrollTrigger: { trigger: row, start: "top 88%" },
+            scrollTrigger: {
+              trigger: row,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
           }
         );
 
@@ -85,7 +93,11 @@ export default function About() {
             x: 0,
             duration: 0.7,
             ease: "power3.out",
-            scrollTrigger: { trigger: row, start: "top 88%" },
+            scrollTrigger: {
+              trigger: row,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
           }
         );
       });

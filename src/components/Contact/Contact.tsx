@@ -51,17 +51,22 @@ export default function Contact() {
         scrollTrigger: {
           trigger: '[data-anim="contact-item"]',
           start: "top 85%",
+          toggleActions: "play none none reverse",
         },
       });
 
       gsap.from('[data-anim="contact-photo"]', {
-        y: 50,
+        rotateY: 90,
+        scale: 0.85,
         autoAlpha: 0,
-        duration: 1,
+        transformPerspective: 1200,
+        transformOrigin: "50% 50%",
+        duration: 1.1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: '[data-anim="contact-photo"]',
           start: "top 85%",
+          toggleActions: "play none none reverse",
         },
       });
     }, sectionRef);

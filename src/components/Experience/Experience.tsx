@@ -26,19 +26,24 @@ export default function Experience() {
         scrollTrigger: {
           trigger: '[data-anim="exp-title"]',
           start: "top 85%",
+          toggleActions: "play none none reverse",
         },
       });
 
       gsap.utils.toArray<HTMLElement>('[data-anim="exp-column"]').forEach((column, i) => {
         gsap.from(column, {
-          y: 40,
+          rotateX: -75,
+          y: 30,
           autoAlpha: 0,
-          duration: 0.8,
-          delay: i * 0.1,
+          transformPerspective: 900,
+          transformOrigin: "50% 0%",
+          duration: 0.9,
+          delay: i * 0.08,
           ease: "power3.out",
           scrollTrigger: {
             trigger: column,
             start: "top 88%",
+            toggleActions: "play none none reverse",
           },
         });
       });

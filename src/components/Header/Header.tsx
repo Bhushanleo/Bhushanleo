@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./Header.module.css";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Publications", href: "#publications" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#home", id: "home" },
+  { label: "About", href: "/#about", id: "about" },
+  { label: "Projects", href: "/#projects", id: "projects" },
+  { label: "Experience", href: "/#experience", id: "experience" },
+  { label: "Publications", href: "/#publications", id: "publications" },
+  { label: "Contact", href: "/#contact", id: "contact" },
 ];
 
 function formatIstTime(date: Date) {
@@ -23,6 +25,7 @@ function formatIstTime(date: Date) {
 }
 
 export default function Header() {
+  const pathname = usePathname();
   const [time, setTime] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -55,6 +58,14 @@ export default function Header() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const handleNavClick = (id: string) => (e: React.MouseEvent) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
+    closeMenu();
+  };
+
   return (
     <header className={`${styles.header} ${visible ? styles.headerVisible : ""}`}>
       <div className={styles.bar}>
@@ -64,9 +75,14 @@ export default function Header() {
 
         <nav className={styles.nav}>
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className={styles.navLink}>
+            <Link
+              key={link.href}
+              href={link.href}
+              className={styles.navLink}
+              onClick={handleNavClick(link.id)}
+            >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -106,9 +122,14 @@ export default function Header() {
 
       <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ""}`}>
         {NAV_LINKS.map((link) => (
-          <a key={link.href} href={link.href} className={styles.mobileLink} onClick={closeMenu}>
+          <Link
+            key={link.href}
+            href={link.href}
+            className={styles.mobileLink}
+            onClick={handleNavClick(link.id)}
+          >
             {link.label}
-          </a>
+          </Link>
         ))}
         <a href="mailto:bushan.leo26@gmail.com" className={styles.mobileLink} onClick={closeMenu}>
           Email me
