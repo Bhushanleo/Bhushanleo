@@ -29,20 +29,30 @@ export default function Projects() {
     const ctx = gsap.context(() => {
       const panelCount = PROJECTS.length;
 
+      // Toggle no-snap over a wider window than the pin itself so native CSS
+      // scroll-snap is reliably disabled before the pin boundary is crossed
+      // (racing the two at the exact same scroll pixel caused the pin to
+      // freeze/overshoot).
+      const snapToggle = ScrollTrigger.create({
+        trigger: outer,
+        start: "top bottom",
+        end: () => "+=" + (panelCount + 1) * 900,
+        onEnter: () => document.documentElement.classList.add("no-snap"),
+        onEnterBack: () => document.documentElement.classList.add("no-snap"),
+        onLeave: () => document.documentElement.classList.remove("no-snap"),
+        onLeaveBack: () => document.documentElement.classList.remove("no-snap"),
+      });
+
       const scrollTween = gsap.to(track, {
         xPercent: (-100 * (panelCount - 1)) / panelCount,
         ease: "none",
         scrollTrigger: {
           trigger: outer,
           start: "top top",
-          end: () => "+=" + (track.scrollWidth - window.innerWidth),
-          scrub: 1,
+          end: () => "+=" + (panelCount - 1) * 900,
+          scrub: 0.4,
           pin: true,
           anticipatePin: 1,
-          onEnter: () => document.documentElement.classList.add("no-snap"),
-          onEnterBack: () => document.documentElement.classList.add("no-snap"),
-          onLeave: () => document.documentElement.classList.remove("no-snap"),
-          onLeaveBack: () => document.documentElement.classList.remove("no-snap"),
           onUpdate: (self) => {
             const index = Math.round(self.progress * (panelCount - 1)) + 1;
             if (counterRef.current) {
@@ -54,6 +64,7 @@ export default function Projects() {
 
       return () => {
         scrollTween.scrollTrigger?.kill();
+        snapToggle.kill();
         document.documentElement.classList.remove("no-snap");
       };
     }, outer);
