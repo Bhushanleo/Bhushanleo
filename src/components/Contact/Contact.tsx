@@ -29,6 +29,7 @@ const YEAR = new Date().getFullYear();
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
+  const photoImgRef = useRef<HTMLImageElement>(null);
   const [greeting, setGreeting] = useState("Hello");
 
   useWipeReveal(sectionRef);
@@ -41,6 +42,8 @@ export default function Contact() {
   }, []);
 
   useEffect(() => {
+    let rafId: number | undefined;
+
     const ctx = gsap.context(() => {
       gsap.from('[data-anim="contact-item"]', {
         y: 30,
@@ -69,9 +72,35 @@ export default function Contact() {
           toggleActions: "play none none reverse",
         },
       });
+
+      if (photoImgRef.current) {
+        const img = photoImgRef.current;
+        let targetScale = 1;
+        let currentScale = 1;
+
+        const loop = () => {
+          currentScale += (targetScale - currentScale) * 0.07;
+          img.style.transform = `scale(${currentScale})`;
+          rafId = requestAnimationFrame(loop);
+        };
+        rafId = requestAnimationFrame(loop);
+
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "top top+=72",
+          onUpdate: (self) => {
+            const tent = self.progress < 0.5 ? self.progress * 2 : (1 - self.progress) * 2;
+            targetScale = 1 + tent * 0.22;
+          },
+        });
+      }
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      if (rafId !== undefined) cancelAnimationFrame(rafId);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -125,10 +154,11 @@ export default function Contact() {
 
         <div className={styles.photoWrap} data-anim="contact-photo">
           <Image
-            src="/images/about-photo.jpg"
-            alt="Bhushan Gowda"
-            width={720}
-            height={1210}
+            ref={photoImgRef}
+            src="/images/contact-avatar.jpg"
+            alt="Bhushan Gowda at his desk, illustrated"
+            width={799}
+            height={1344}
             className={styles.photo}
           />
         </div>
